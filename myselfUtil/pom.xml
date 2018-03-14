@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.sy</groupId>
-    <artifactId>javaUtil</artifactId>
+    <artifactId>javaUtils</artifactId>
     <version>0.0.1</version>
   </parent>
   <artifactId>myselfUtil</artifactId>
