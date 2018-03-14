@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sy</groupId>
+    <artifactId>javaUtil</artifactId>
+    <version>0.0.1</version>
+  </parent>
+  <artifactId>myselfUtil</artifactId>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+  	<!-- mysql 目前5.x和6.x是并行的，这里使用5-->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.45</version>
+	</dependency>
+	
+	<!-- mongo -->
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongo-java-driver</artifactId>
+	    <version>3.6.1</version>
+	</dependency>
+	
+
+  	
+  
+  </dependencies>
+  
+</project>
