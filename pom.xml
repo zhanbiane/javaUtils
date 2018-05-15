@@ -4,17 +4,36 @@
 
   <groupId>com.sy</groupId>
   <artifactId>javaUtils</artifactId>
-  <version>0.0.1</version>
-  <packaging>pom</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-  <name>javaUtil</name>
+  <name>javaUtils</name>
+  <url>http://maven.apache.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
-	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+  	<!-- mysql 目前5.x和6.x是并行的，这里使用5-->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.45</version>
+	</dependency>
+  
+  	<!-- mongo -->
+	<dependency>
+	    <groupId>org.mongodb</groupId>
+	    <artifactId>mongo-java-driver</artifactId>
+	    <version>3.6.1</version>
+	</dependency>
+  
+  
+  
+  
+  
+  	<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 	<dependency>
 	    <groupId>org.slf4j</groupId>
 	    <artifactId>slf4j-api</artifactId>
@@ -28,13 +47,9 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <modules>
-  	<module>myselfUtil</module>
-  	<module>mylangUtil</module>
-  </modules>
   
   <build>
+  	<finalName>javaUtils</finalName>
   	<plugins>
   		<plugin>
 		  <artifactId>maven-compiler-plugin</artifactId>
