@@ -54,8 +54,6 @@ public class GetTypeByHead {
      * @return 文件头信息 
      */  
     public static String getFileType(String filePath) {  
-        System.out.println(getFileHeader(filePath));  
-        System.out.println(mFileTypes.get(getFileHeader(filePath)));  
         return mFileTypes.get(getFileHeader(filePath));  
     }  
   
@@ -117,7 +115,7 @@ public class GetTypeByHead {
     }  
   
     public static void main(String[] args) throws Exception {  
-        final String fileType = getFileType("D:\\Ry4S_JAVA.dll");  
+        final String fileType = getFileType("F:/tmp/a.xlsx");  
         System.out.println(fileType);  
     }  
 }
