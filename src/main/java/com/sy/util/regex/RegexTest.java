@@ -16,7 +16,7 @@ public class RegexTest {
         System.out.println(m.lookingAt());//结果，true  
 //      matcher 要求整个序列都匹配，而lookingAt 不要求。  
           
-        common("2222-22-9e");  
+        common("2222-22-9e");
     }  
     //常用的验证项  
     public static void common(String str){  

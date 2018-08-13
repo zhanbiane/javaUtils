@@ -2,6 +2,7 @@ package com.sy.util.http.test;
 
 import java.io.IOException;
 
+import org.apache.http.Header;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.StringEntity;
