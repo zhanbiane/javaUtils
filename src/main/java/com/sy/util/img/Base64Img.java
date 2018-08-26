@@ -11,6 +11,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
+import com.sy.util.encode.EncodeUtil;
+
 
 /**  
  * @Description: TODO(不同地址下得到的图片转换成base64)
@@ -55,7 +57,6 @@ public class Base64Img {
 	 * @param imgURL
 	 * @return
 	 */
-	@SuppressWarnings("restriction")
 	public static String imgToBase64(URL imgURL){
 		ByteArrayOutputStream baos=null;
 		try {
@@ -66,9 +67,7 @@ public class Base64Img {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
-		
-		sun.misc.BASE64Encoder encode=new sun.misc.BASE64Encoder();
-		return encode.encode(baos.toByteArray());
+		return EncodeUtil.encryptBASE64(baos.toByteArray());
 	}
 	
 	/**
@@ -76,7 +75,6 @@ public class Base64Img {
 	 * @param file
 	 * @return
 	 */
-	@SuppressWarnings("restriction")
 	public static String imgToBase64(File file){
 		ByteArrayOutputStream baos=null;
 		try {
@@ -88,12 +86,10 @@ public class Base64Img {
 			e.printStackTrace();
 		}		
 		
-		sun.misc.BASE64Encoder encode=new sun.misc.BASE64Encoder();
-		return encode.encode(baos.toByteArray());
+		return EncodeUtil.encryptBASE64(baos.toByteArray());
 	}	
 	
 	
-	@SuppressWarnings("restriction")
 	public static String imgToBase64_2(File file){
 		InputStream is=null;
 		byte[] b=null;
@@ -108,18 +104,15 @@ public class Base64Img {
 				e.printStackTrace();
 			}
 		}
-		sun.misc.BASE64Encoder encode=new sun.misc.BASE64Encoder();
-		return encode.encode(b);
+		return  EncodeUtil.encryptBASE64(b);
 	}
 	
 	
-	@SuppressWarnings("restriction")
 	public static void base64ToImg(String baseImg,String file){
 		FileOutputStream fos=null;
 		try {
 			fos =  new FileOutputStream(file);
-			sun.misc.BASE64Decoder decode = new sun.misc.BASE64Decoder();
-			byte[] b = decode.decodeBuffer(baseImg);
+			byte[] b = EncodeUtil.dencordBASE64(baseImg);
 			for(int i=0;i<b.length;i++){
 				if(b[i]<0){
 					b[i]+=256;

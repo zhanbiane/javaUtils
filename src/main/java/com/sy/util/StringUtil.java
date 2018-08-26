@@ -3,8 +3,6 @@ package com.sy.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.joda.time.DateTime;
-
 /**
  * @deccription 处理String常见情况
  *
@@ -22,4 +20,8 @@ public class StringUtil {
 //		DateTime dt = new DateTime("2018年5月30日");
 		System.out.println(sdf2.format(sdf.parse("2018年5月30日")));
 	}
+	
+
+	
+	
 }

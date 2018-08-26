@@ -1,4 +1,4 @@
-package com.sy.util.file;
+package com.sy.util.file.download;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
