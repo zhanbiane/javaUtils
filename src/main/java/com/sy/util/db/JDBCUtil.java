@@ -171,16 +171,13 @@ public class JDBCUtil {
 	/**
 	 * 用于执行INSERT、UPDATE或 DELETE语句以及SQL DDL语句
 	 * @return
+	 * @throws SQLException 
 	 */
-	public int update(String sql){
+	public int update(String sql) throws SQLException{
 		int count = 0;
 		connection = this.getConnection();
-		try {
-			statement = connection.createStatement();
-			count = statement.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		statement = connection.createStatement();
+		count = statement.executeUpdate(sql);
 		return count;
 	}
 	
@@ -210,25 +207,24 @@ public class JDBCUtil {
 	 * 大量执行DDL操作
 	 * @param hql
 	 * @param objs
+	 * @throws SQLException 
 	 */
-	public void updateBatch(String hql,List<Object[]> objs) {
+	public void updateBatch(String hql,List<Object[]> objs) throws SQLException {
 		connection = this.getConnection();
-		try {
-			prepareStatement = connection.prepareStatement(hql);
-			//参数判断
-			if(objs!=null&&!objs.isEmpty()) {
-				for(Object[] params:objs) {
-					if(params!=null){
-						for (int i = 0; i < params.length; i++) {
-							prepareStatement.setObject(i + 1, params[i]);
-						}
-						prepareStatement.addBatch();
+		prepareStatement = connection.prepareStatement(hql,ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+		prepareStatement.setFetchSize(Integer.MIN_VALUE);
+		prepareStatement.setFetchDirection(ResultSet.FETCH_REVERSE);
+		//参数判断
+		if(objs!=null&&!objs.isEmpty()) {
+			for(Object[] params:objs) {
+				if(params!=null){
+					for (int i = 0; i < params.length; i++) {
+						prepareStatement.setObject(i + 1, params[i]);
 					}
+					prepareStatement.addBatch();
 				}
-				prepareStatement.executeBatch();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+			prepareStatement.executeBatch();
 		}
 	}
 	

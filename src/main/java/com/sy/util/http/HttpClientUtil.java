@@ -66,61 +66,6 @@ public class HttpClientUtil {
         GET, POST;
     };
 
-    /**
-     * 创建HTTPS连接
-     * 
-     * @return 自动关闭的https连接
-     * @throws Exception
-     * @author dubl
-     */
-    public static CloseableHttpClient getHttpsClient() throws Exception {
-        CloseableHttpClient httpClient = null;
-        // 重写ssl证书校验 do something or do nothing
-        TrustManager trustManager = new X509TrustManager() {
-
-            @Override
-            public X509Certificate[] getAcceptedIssuers() {
-                return null;
-            }
-
-            @Override
-            public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-
-            }
-
-            @Override
-            public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-
-            }
-        };
-        try {
-            // 开启SSL
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            // 初始化ssl校验
-            sslContext.init(null, new TrustManager[] { trustManager }, null);
-            // 注册ssl链接工厂
-            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext,
-                    NoopHostnameVerifier.INSTANCE);
-            // 请求配置
-            RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
-                    .setExpectContinueEnabled(true)
-                    .setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
-                    .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
-            // 链接配置
-            Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
-                    .register("http", PlainConnectionSocketFactory.INSTANCE).register("https", socketFactory).build();
-            // 创建ConnectionManager，添加Connection配置信息
-            PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
-                    socketFactoryRegistry);
-            // 创建连接
-            httpClient = HttpClients.custom().setConnectionManager(connectionManager)
-                    .setDefaultRequestConfig(requestConfig).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("创建https连接出错。" + e.getMessage());
-        }
-        return httpClient;
-    }
 
     /**
      * 发送http请求
@@ -215,24 +160,7 @@ public class HttpClientUtil {
         return result;
     }
 
-    /**
-     * 获取http连接
-     * 
-     * @return
-     * @throws Exception
-     * @author dubl
-     */
-    public static CloseableHttpClient getHttpClient() throws Exception {
-        CloseableHttpClient httpClient = null;
-        try {
-            // 创建连接
-            httpClient = HttpClients.createDefault();
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("创建http连接出错。" + e.getMessage());
-        }
-        return httpClient;
-    }
+
 
     /**
      * 发送get请求
@@ -314,4 +242,86 @@ public class HttpClientUtil {
 //        return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
 //    }
 
+    
+    
+    
+    
+    /**
+     * 获取http连接
+     * 
+     * @return
+     * @throws Exception
+     * @author dubl
+     */
+    public static CloseableHttpClient getHttpClient() throws Exception {
+        CloseableHttpClient httpClient = null;
+        try {
+            // 创建连接
+            httpClient = HttpClients.createDefault();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("创建http连接出错。" + e.getMessage());
+        }
+        return httpClient;
+    }
+    
+    
+    /**
+     * 创建HTTPS连接
+     * 
+     * @return 自动关闭的https连接
+     * @throws Exception
+     * @author dubl
+     */
+    public static CloseableHttpClient getHttpsClient() throws Exception {
+        CloseableHttpClient httpClient = null;
+        // 重写ssl证书校验 do something or do nothing
+        TrustManager trustManager = new X509TrustManager() {
+
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+
+            }
+        };
+        try {
+            // 开启SSL
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            // 初始化ssl校验
+            sslContext.init(null, new TrustManager[] { trustManager }, null);
+            // 注册ssl链接工厂
+            SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext,
+                    NoopHostnameVerifier.INSTANCE);
+            // 请求配置
+            RequestConfig requestConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT)
+                    .setExpectContinueEnabled(true)
+                    .setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
+                    .setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
+            // 链接配置
+            Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
+                    .register("http", PlainConnectionSocketFactory.INSTANCE).register("https", socketFactory).build();
+            // 创建ConnectionManager，添加Connection配置信息
+            PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
+                    socketFactoryRegistry);
+            // 创建连接
+            httpClient = HttpClients.custom().setConnectionManager(connectionManager)
+                    .setDefaultRequestConfig(requestConfig).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("创建https连接出错。" + e.getMessage());
+        }
+        return httpClient;
+    }
+    
+    
+    
 }
