@@ -29,8 +29,8 @@ public class PropertyTest {
 //		ClassLoader.getSystemResourceAsStream(path);
 //		PropertyTest.class.getResourceAsStream(filePath);
 //		writePro(getPro2(filePath));
-//		Properties pps = System.getProperties();
-//        pps.list(System.out);
+		Properties pps = System.getProperties();
+        pps.list(System.out);
         String u = System.getProperty("user.dir");
         System.out.println(u);
     }
