@@ -1,6 +1,7 @@
 package com.sy.util.base;
 
-import java.io.UnsupportedEncodingException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @deccription 常见字符串处理工具
@@ -136,16 +137,43 @@ public class StringUtil {
 		return resourceString.substring(0, length);
 	}
 	
+	/**
+	 * 去除所有空格、制表符、换行符
+	 * @param str
+	 * @return
+	 * 2018年11月30日
+	 * 
+	 * P：标点字符
+	 * L：字母； 
+	M：标记符号（一般不会单独出现）； 
+	Z：分隔符（比如空格、换行等）； 
+	S：符号（比如数学符号、货币符号等）； 
+	N：数字（比如阿拉伯数字、罗马数字等）； 
+	C：其他字符
+	参考：https://blog.csdn.net/tian330726/article/details/50906318
+	 */
+	public static String replaceBlank(String str) {
+		String dest = "";
+		if (str != null) {
+			dest = str.replaceAll("[\\pZ\\s]", "");
+		}
+		return dest;
+	}
 	
-	
-	
-
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		System.out.println(subString("3i李白11112323", 5));
-		System.out.println(reverse("l刘欢3"));
-		String uni = string2Unicode("Z");
-		System.out.println(unicode2String(uni)+"SS");
-		System.out.println(string2Unicode(unicode2String(uni)));
+	/**
+	 * 查找一个匹配的字符串
+	 * @param text
+	 * @param regx
+	 * @return
+	 */
+	public static String findOne(String text,String regx) {
+		Pattern regex = Pattern.compile(regx);
+		Matcher matcher = regex.matcher(text);
+		String str = null;
+		while(matcher.find()) {
+			str = matcher.group(1);
+		};
+		return str;
 	}
 
 }
