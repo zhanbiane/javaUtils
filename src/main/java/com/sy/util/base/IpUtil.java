@@ -63,14 +63,15 @@ public class IpUtil {
      * @param ethNum 网络接口名，Linux下是eth0
      * @return
      */
-    private static String getIpByEthNum(String ethNum) {
+    @SuppressWarnings("rawtypes")
+	private static String getIpByEthNum(String ethNum) {
         try {
             Enumeration allNetInterfaces = NetworkInterface.getNetworkInterfaces();
             InetAddress ip;
             while (allNetInterfaces.hasMoreElements()) {
                 NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
                 if (ethNum.equals(netInterface.getName())) {
-                    Enumeration addresses = netInterface.getInetAddresses();
+					Enumeration addresses = netInterface.getInetAddresses();
                     while (addresses.hasMoreElements()) {
                         ip = (InetAddress) addresses.nextElement();
                         if (ip != null && ip instanceof Inet4Address) {
