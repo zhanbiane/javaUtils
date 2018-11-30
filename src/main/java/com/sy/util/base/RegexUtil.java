@@ -1,5 +1,6 @@
-package com.sy.util.regex;
+package com.sy.util.base;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -7,18 +8,32 @@ import java.util.regex.Pattern;
  * @deccription TODO
  * @author zhanbiane
  * 2018年3月14日
+ * https://blog.csdn.net/zhanbiane/article/details/55049319
  */
 public class RegexUtil {
 	
 	/**
-	 * 自定义验证
-	 * @param regex 这则表达式
+	 * 自定义验证绝对匹配
 	 * @param input 需验证的字符串
+	 * @param regex 正则表达式
 	 * @return
 	 */
-	public static boolean check(String regex,String input) {
+	public static boolean check(String input,String regex) {
 		if(regex==null||input==null) {return false;}
 		return Pattern.matches(regex, input);
+	}
+	
+	/**
+	 * 是否有符合条件的验证
+	 * @param str
+	 * @param regex 正则表达式
+	 * @return
+	 */
+	public static boolean find(String input, String regex) {
+		if(regex==null||input==null) {return false;}
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(input);
+		return m.find();
 	}
 
 	/**
@@ -50,9 +65,10 @@ public class RegexUtil {
      */
     public static boolean checkEmail(String email) {
         if(email==null){return false;}
-        String regex = "\\w+@\\w+\\.[a-z]+(\\.[a-z]+)?";
+        String regex = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?";
         return Pattern.matches(regex, email);
     }
+    
     
     /**
      * 验证身份证号
