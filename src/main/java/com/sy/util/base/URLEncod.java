@@ -1,5 +1,6 @@
 package com.sy.util.base;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,4 +45,22 @@ public class URLEncod {
 		}
 		return "";
 	}
+	
+	/**
+	 * urlEncord
+	 * @param str
+	 * @param charset
+	 * @return
+	 * 2018年12月14日
+	 */
+	public static String urlEncord(String str,String charset) {
+		try {
+			return java.net.URLEncoder.encode(str, charset);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }
