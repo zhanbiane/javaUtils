@@ -12,6 +12,26 @@ public class StringUtil {
 	
 	
 	/**
+	 * 分离数量和单位
+	 * @param unitStr
+	 * @return 返回结果根据空格分开
+	 */
+	public static String[] splitCell(String unitStr) {
+		if(unitStr!=null) {
+			String[] s = new String[2];
+			String u = replaceBlank(unitStr);
+			String num = findOne(u,"^([0-9]+\\.?[0-9]*)[\\s\\S]*");
+			s[0]=num;
+			if(num != null && num.length()<unitStr.length()) {
+				String unit = u.substring(num.length());
+				s[1]=unit;
+			}
+			return s;
+		}
+		return null;
+	}
+	
+	/**
 	 * 半角转全角
 	 * 
 	 * @param input String.
@@ -119,6 +139,19 @@ public class StringUtil {
 	}
 	
 	/**
+	 * unicode 去除不显示的特殊占位字符
+	 * @param str
+	 * @return
+	 */
+	public static String replaceBlankC(String str) {
+		String dest = "";
+		if (str != null) {
+			dest = str.replaceAll("[\\pC\\s]", "");
+		}
+		return dest;
+	}
+	
+	/**
 	 * 查找一个匹配的字符串
 	 * @param text
 	 * @param regx
@@ -133,5 +166,16 @@ public class StringUtil {
 		};
 		return str;
 	}
-
+	
+	/**
+	 * 判断是否为空
+	 * @param str
+	 * @return
+	 */
+	public static boolean isEmpty(String str) {
+		if(null != str && !"".equals(str)) {
+			return false;
+		}
+		return true;
+	}
 }
